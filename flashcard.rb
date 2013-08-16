@@ -1,10 +1,11 @@
-class Cards
+class Card
 
   attr_reader :definition, :word
 
   def initialize(definition, word)
     @definition = definition
     @word = word
+
   end
 end
 
@@ -17,10 +18,18 @@ class Deck
     @cards = []
   end
 
-  def read_file
-    File.readlines(@source_file) do |row|
-      p row
+  def generate_cards
+    @card_hash.each do |definition, word|
+      @cards << Card.new(definition, word)
     end
+    @cards
+  end
+
+  def read_file
+    array = File.readlines(@source_file)
+    array.reject! {|item| item == "\n"}
+    array.map! {|item| item.chomp}
+    @card_hash = Hash[*array]
   end
 
 
@@ -29,9 +38,10 @@ class Deck
 end
 
 
-new_deck = Deck.new('flashcard_samples.txt')
-
+new_deck = Deck.new('flash_cards.txt')
 new_deck.read_file
+new_deck.generate_cards
+p new_deck.cards[0].definition
 
 # new_deck.cards #return array of deck
 
