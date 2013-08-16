@@ -19,12 +19,14 @@ class Deck
     generate_cards
   end
 
+  private
   def generate_cards
     @card_hash.each do |definition, word|
       @cards << Card.new(definition, word)
     end
     @cards
   end
+
 
   def read_file
     content = File.readlines(@source_file)
