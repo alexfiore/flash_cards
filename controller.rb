@@ -1,13 +1,14 @@
+require_relative 'flashcard.rb'
 
 class Controller
   def initialize(filename)
     @new_deck = Deck.new(filename)
-    @cards = new_deck.cards
-    # @cards = [Card.new('fuck', 'fuck'), Card.new('shit', 'shit')]
+    @cards = @new_deck.cards
   end
 
   def start_game
     View.welcome
+    p @cards[0]
     while @cards[0] != nil
       card = @cards[0]
       View.prompt(card.definition)
@@ -19,39 +20,31 @@ class Controller
         View.incorrect
       elsif guess == 'exit'
         View.exit
-        break 
+        break
       end
     end
   end
 end
 
-# class Card
-#   attr_reader :definition, :word
-#   def initialize(definition, word)
-#     @definition = definition
-#     @word = word
-#   end
-# end
+class View
 
-class View 
-
-  def welcome 
+  def self.welcome
     puts "Hey man, let's learn some Ruby."
   end
 
-  def prompt(definition)
+  def self.prompt(definition)
     puts "Please return the term for this definition: \n #{definition}"
   end
 
-  def correct
+  def self.correct
     puts "Congrats! \n  **********************"
   end
 
-  def incorrect 
+  def self.incorrect
     puts "\n Not quite, but so close. Try again!"
   end
 
-  def exit 
+  def self.exit
     puts "Thanks for playing!"
   end
 

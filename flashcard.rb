@@ -14,7 +14,9 @@ class Deck
 
   def initialize(source_file)
     @source_file = source_file
+    read_file
     @cards = []
+    generate_cards
   end
 
   def generate_cards
@@ -34,8 +36,8 @@ class Deck
 end
 
 
-new_deck = Deck.new('flash_cards.txt')
-new_deck.read_file
-new_deck.generate_cards
-p new_deck.cards[0].definition
+# new_deck = Deck.new('flash_cards.txt')
+# new_deck.read_file
+# new_deck.generate_cards
+# p new_deck.cards
 
